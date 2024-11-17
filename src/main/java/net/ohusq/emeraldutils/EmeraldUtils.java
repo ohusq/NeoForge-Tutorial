@@ -31,7 +31,6 @@ public class EmeraldUtils
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public EmeraldUtils(IEventBus modEventBus, ModContainer modContainer)
     {
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in.
@@ -39,16 +38,13 @@ public class EmeraldUtils
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-
         // register items to eventbus
-
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
