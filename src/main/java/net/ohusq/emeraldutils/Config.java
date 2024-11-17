@@ -5,11 +5,15 @@ import java.util.stream.Collectors;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.ohusq.emeraldutils.block.ModBlocks;
+import net.ohusq.emeraldutils.item.ModItems;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
@@ -45,6 +49,19 @@ public class Config
     private static boolean validateItemName(final Object obj)
     {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
+    }
+
+    @SubscribeEvent
+    public static void buildContents(BuildCreativeModeTabContentsEvent event) {
+        // Is this the tab we want to add to?
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.BISMUTH.get()); // adds it to the register
+            event.accept(ModItems.RAW_BISMUTH.get()); // still works
+        }
+        else if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(ModBlocks.BISMUTH_BLOCK.get()); // game crashes because item isn't created or visible with /give
+            // most likely an issue with creating the item (possibly texture issue)
+        }
     }
 
     @SubscribeEvent

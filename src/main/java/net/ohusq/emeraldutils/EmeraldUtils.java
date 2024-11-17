@@ -1,6 +1,7 @@
 package net.ohusq.emeraldutils;
 
 import net.minecraft.world.item.CreativeModeTabs;
+import net.ohusq.emeraldutils.block.ModBlocks;
 import net.ohusq.emeraldutils.item.ModItems;
 import org.slf4j.Logger;
 
@@ -38,7 +39,11 @@ public class EmeraldUtils
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+
+        // register items to eventbus
+
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -51,11 +56,11 @@ public class EmeraldUtils
 
     }
 
+
+
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.BISMUTH);
-        }
+        // NOT USING ADD CREATIVE FUNCTION (check config.java.BuildContents)
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -64,13 +69,15 @@ public class EmeraldUtils
 
     }
 
+
+
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            LogUtils.getLogger().debug("Minecraft started on client");
         }
     }
 }

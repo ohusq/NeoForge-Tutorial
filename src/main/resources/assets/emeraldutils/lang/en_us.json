@@ -1,3 +1,6 @@
 {
-  "item.emeraldutils.bismuth": "Bismuth"
+  "item.emeraldutils.bismuth": "Bismuth",
+  "item.emeraldutils.raw_bismuth": "Raw Bismuth",
+
+  "block.emeraldutils.bismuth_block": "Block of Bismuth"
 }
