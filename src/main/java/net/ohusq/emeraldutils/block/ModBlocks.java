@@ -15,9 +15,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> BISMUTH_BLOCK = BLOCKS.registerSimpleBlock(
             "bismuth_block",
             BlockBehaviour.Properties.of()
-                .strength(4f)
-                .requiresCorrectToolForDrops()
-                .sound(SoundType.AMETHYST)
+                    .destroyTime(4f)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.AMETHYST)
     );
 
     public static void register(IEventBus eventBus) {
